@@ -1,5 +1,5 @@
 
- # Exercícios Conceitos Básicos de Python
+ ## Turma 3 | Bootcamp Back-End Python e Django
   <img src="https://www.timeforkids.com/wp-content/uploads/2020/08/Grace_003.jpg?w=926" alt="imagem Grace Hopper" width="200px"/>
   
 ## ${\color {#8034eb} Squad \ Grace \ Hopper}$  
