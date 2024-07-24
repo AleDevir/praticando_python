@@ -8,10 +8,8 @@
 Integrantes:
 - Alessandra Ribeiro Guimarães
 - Daiany Aparecida de Morais
-- Elaine Candido da Silva
 - Érika Brito Correia
+- Fabiane Cavalheiro dos Santos
 - Mayla Silva de Siqueira Krama
 - Thaysa Borges de Lima Santos
-- Fabiane Cavalheiro dos Santos
-- Isabel Graziela de Oliveira Junior
-
+- Rafaela Clementino Pereira Caro
