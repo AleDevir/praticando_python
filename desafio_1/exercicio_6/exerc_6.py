@@ -46,7 +46,7 @@ def limpar_console():
     if platform.system() == 'Linux':
         os.system('clear')
 
-def input_opcoes(msg: str, opcoes: list[str]) -> str:
+def input_opcoes(msg: str, opcoes: dict[str, str ]) -> str:
     '''
     Obtem a opção válida.
     Retorna a opção.
