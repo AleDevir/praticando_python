@@ -49,13 +49,13 @@ def limpar_console():
     if platform.system() == 'Linux':
         os.system('clear')
 
-def input_opcoes(msg: str, opcoes: list[str]) -> str:
+def input_opcoes(msg: str, opcoes: dict[str, str ]) -> str:
     '''
     Obtem a opção válida.
     Retorna a opção.
     '''
     while True:
-        opcao = get_input(msg).upper()
+        opcao = input(msg).upper()
         if opcao in opcoes:
             return opcao
         print(f"'{bright_vermelho(opcao)}'\tOpção inválida! As opções válidas são: {verde(', '.join(opcoes))}") # pylint: disable=line-too-long
@@ -128,7 +128,7 @@ def input_calculo() -> str:
     '''
     Obtem as entrada para o calculo.
     Retorna o calculo.
-    '''    
+    '''
     while True:
         calculo = input("\tCalcular: ")
         calculo_valido = re.match(VALIDACAO_DA_FORMULA, calculo)
