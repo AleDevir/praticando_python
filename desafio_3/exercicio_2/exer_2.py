@@ -54,9 +54,9 @@ def exibir_cabecalho() -> None:
     Exibe o cabeçalho.
     '''
     limpar_console()
-    print('\t#####################################')
-    print("\t\tEntre com notas para saber a aprovação.")
-    print('\t#####################################\n')
+    print('\t#######################################')
+    print("\tEntre com notas para saber a aprovação")
+    print('\t#######################################\n')
 
 def input_float(msg: str) -> float:
     '''
