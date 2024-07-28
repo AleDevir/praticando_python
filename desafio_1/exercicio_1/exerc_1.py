@@ -14,6 +14,12 @@ COR_BRANCA: Final[str] = '\033[0;0m'
 COR_BRIGHT_AMARELA: Final[str] = '\033[93m'
 COR_VERDE: Final[str] = '\033[32m'
 COR_BRIGHT_VERMELHA: Final[str] = '\033[91m'
+OPERADORES_E_TERMOS:  Final[dict[str, str ]] = {
+    '+': 'Soma',
+    '-': 'Subtração',
+    '*': 'Multiplicação',
+    '/': 'Divisão'
+}
 VALIDACAO_DA_FORMULA: Final[str] = r'^\s*\d{1,8}(?:\.\d{1,2}|)\s*[*+-/]\s*\d{1,8}(?:\.\d{1,2}|)\s*$'
 
 # Habilita os caracteres ANSI escape no terminal Windows.
@@ -67,13 +73,13 @@ def input_int(msg: str) -> int:
     '''
     while True:
         try:
-            return int(get_input(msg))
+            return int(input(msg))
         except ValueError:
             print(bright_vermelho('\tApenas números inteiros são aceitos. Por favor, tente novamente.\n'))
 
 def input_float(msg: str) -> float:
     '''
-    Obtem número inteiro informado pelo usuário.
+    Obtem número informado pelo usuário.
     Retorna o número.
     '''
     while True:
@@ -100,29 +106,22 @@ def exibir_menu(opcoes: dict[str, str]) -> None:
 def calcular_operacoes(calculo:str) -> float:
     '''
     Calcula a operação aritmética de acordo com o operador e os numeros informadas pelo usuário.
-    Retorna o resultado da operação com a precisão de duas casas decimais.
+    Retorna o resultado da operação.
     '''
     if '*' in calculo:
         numero_1, numero_2 = calculo.split("*")
-        return float(numero_1) * float(numero_2) 
+        return float(numero_1) * float(numero_2)
     elif '/' in calculo:
         numero_1, numero_2 = calculo.split("/")
-        return float(numero_1) / float(numero_2) 
+        return float(numero_1) / float(numero_2)
     elif '-' in calculo:
         numero_1, numero_2 = calculo.split("-")
-        return float(numero_1) - float(numero_2) 
+        return float(numero_1) - float(numero_2)
     elif '+' in calculo:
         numero_1, numero_2 = calculo.split("+")
-        return float(numero_1) + float(numero_2) 
+        return float(numero_1) + float(numero_2)
     raise ValueError(bright_vermelho(f'\tNão é possível realizar cálculo para o operador = {calculo}'))
 
-
-operadores_e_termos:  dict[str, str ] = {
-    '+': 'Soma',
-    '-': 'Subtração',
-    '*': 'Multiplicação',
-    '/': 'Divisão'
-}
 
 def input_calculo() -> str:
     '''
@@ -143,7 +142,7 @@ def main() -> None:
     '''
     limpar_console()
     print(verde('\t\tFaça seu cálculo.'))
-    exibir_menu(operadores_e_termos)
+    exibir_menu(OPERADORES_E_TERMOS)
     calculo = input_calculo()
     limpar_console()
     print(bright_amarelo(f"\n\t O resultado de {calculo} é: {calcular_operacoes(calculo):.2f}"))
