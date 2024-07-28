@@ -18,7 +18,11 @@ LINHA_TRACEJADA: Final[str] = '-' * 31
 COR_BRANCA: Final[str] = '\033[0;0m'
 COR_VERDE: Final[str] = '\033[32m'
 COR_BRIGHT_VERMELHA: Final[str] = '\033[91m'
-
+OPCOES_DE_TRANSPORTE:  Final[dict[str, str ]] = {
+    'A': 'Avião',
+    'O': 'Ônibus',
+    'C': 'Carro',    
+}
 
 # Habilita os caracteres ANSI escape no terminal Windows.
 os.system("")
@@ -55,11 +59,11 @@ def input_opcoes(msg: str, opcoes: dict[str, str ]) -> str:
         opcao = input(msg).upper()
         if opcao in opcoes:
             return opcao
-        print(f"'{bright_vermelho(opcao)}'\tOpção inválida! As opções válidas são: {verde(', '.join(opcoes))}") # pylint: disable=line-too-long
+        print(f"\n\t'{bright_vermelho(opcao)}' é uma opção inválida! As opções válidas são: {verde(', '.join(opcoes))}") # pylint: disable=line-too-long
 
 def input_float(msg: str) -> float:
     '''
-    Obtem número inteiro informado pelo usuário.
+    Obtem número informado pelo usuário.
     Retorna o número.
     '''
     while True:
@@ -83,31 +87,22 @@ def exibir_menu(opcoes: dict[str, str]) -> None:
         print(f"\t\t{verde(opcao)} ")
     print(verde(f'\t{LINHA_TRACEJADA}'))
 
-opcoes_de_transporte:  dict[str, str ] = {
-    'A': 'Avião',
-    'O': 'Ônibus',
-    'C': 'Carro',    
-}
-
-opcoes_do_menu_transporte:list = list(opcoes_de_transporte)
-
 def obter_quilometro() -> float:
     '''
     Obtem os quilômetros informados pelo usuário.
     Retorna os quilômetros válidos.
-    ''' 
+    '''
     while True:
         quilometros_informados =  input_float('\tDistância em Km: ')
         if quilometros_informados > 0:
             return quilometros_informados
-        else:
-            print(bright_vermelho('\tValor do quilômetro inválido. Entre com um valor acima de zero.'))
+        print(bright_vermelho('\tValor do quilômetro inválido. Entre com um valor acima de zero.'))
 
 def calcular_tempo_de_viagem(distancia: float, velocidade: float) -> float:
     '''
     Calcula o tempo de viagem gasto.
     '''
-    tempo_de_viagem = distancia / velocidade 
+    tempo_de_viagem = distancia / velocidade
     return tempo_de_viagem
 
 def passar_para_texto(valor) -> str:
@@ -121,21 +116,21 @@ def passar_para_texto(valor) -> str:
 
 def calcular_tempo_da_viagem_de_aviao(distancia: float) -> float:
     '''
-    Calcula o tempo de viagem de avião. distancia(km)
+    Calcula o tempo de viagem de avião - distancia(km)
     '''
     velocidade_do_aviao = 600
     return calcular_tempo_de_viagem(distancia, velocidade_do_aviao)
 
 def calcular_tempo_da_viagem_de_carro(distancia: float) -> float:
     '''
-    Calcula o tempo de viagem de carro. distancia(km)
+    Calcula o tempo de viagem de carro - distancia(km)
     '''
     velocidade_do_carro = 100
     return calcular_tempo_de_viagem(distancia, velocidade_do_carro)
 
 def calcular_tempo_da_viagem_de_onibus(distancia: float) -> float:
     '''
-    Calcula o tempo de viagem de carro. distancia(km)
+    Calcula o tempo de viagem de carro - distancia(km)
     '''
     velocidade_do_onibus = 80
     return calcular_tempo_de_viagem(distancia, velocidade_do_onibus)
@@ -147,24 +142,22 @@ def main() -> None:
     limpar_console()
     print(verde('\tSaiba quanto tempo sua viagem vai levar.\n'))
     while True:
-        exibir_menu(opcoes_de_transporte)
-        transporte = input_opcoes('\tTipo de transporte: ', opcoes_do_menu_transporte)
+        exibir_menu(OPCOES_DE_TRANSPORTE)
+        transporte = input_opcoes('\tTipo de transporte: ', OPCOES_DE_TRANSPORTE)
         distancia = obter_quilometro()
-         
         if transporte == 'A':
-            tempo_de_viagem = calcular_tempo_da_viagem_de_aviao(distancia) 
-            tempo_formatado = passar_para_texto(tempo_de_viagem)   
+            tempo_de_viagem = calcular_tempo_da_viagem_de_aviao(distancia)
+            tempo_formatado = passar_para_texto(tempo_de_viagem)
             print(f'\n\tTempo estimado de viagem {tempo_formatado}')
-           
-  
+
         elif transporte == 'O':
             tempo_de_viagem = calcular_tempo_da_viagem_de_onibus(distancia)
-            tempo_formatado = passar_para_texto(tempo_de_viagem) 
+            tempo_formatado = passar_para_texto(tempo_de_viagem)
             print(f'\n\tTempo estimado de viagem {tempo_formatado}')
 
         elif transporte == 'C':
             tempo_de_viagem = calcular_tempo_da_viagem_de_carro(distancia)
-            tempo_formatado = passar_para_texto(tempo_de_viagem) 
+            tempo_formatado = passar_para_texto(tempo_de_viagem)
             print(f'\n\tTempo estimado de viagem {tempo_formatado}')
         break
 
