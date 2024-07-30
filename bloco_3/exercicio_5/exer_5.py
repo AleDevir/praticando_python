@@ -9,7 +9,7 @@ def main() -> None:
     '''
     tupla_1 = (1, 2)
     tupla_2 = ('a', 'b')
-    tupla_3 = (tupla_1, tupla_2)
+    tupla_3 = tupla_1 + tupla_2
     print(f"\n\t Tupla 1: {tupla_1} Tupla 2: {tupla_2} e Tupla concatenada {tupla_3}\n")
 
 
