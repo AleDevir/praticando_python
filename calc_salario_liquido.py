@@ -1,5 +1,5 @@
 '''
-exercício 5 do Desafio_1 - Escreva um programa que calcule o salário líquido. Lembrando de
+Calcule o salário líquido. Lembrando de
 declarar o salário bruto e o percentual de desconto do Imposto de Renda.
     ● Renda até R$ 1.903,98: isento de imposto de renda;
     ● Renda entre R$ 1.903,99 e R$ 2.826,65: alíquota de 7,5%;
