@@ -83,8 +83,8 @@ def obter_nota(numero: float) -> float:
 
 def obter_notas(numero_de_notas: int = 4) -> list[float]:
     '''
-    Obtem as três notas inseridas pelo usuário na ordem ['1°', '2°' , '3°', '4°'].
-    Retorna uma lista com as três notas.
+    Obtem as quatro notas inseridas pelo usuário na ordem ['1°', '2°' , '3°', '4°'].
+    Retorna uma listacom as notas.
     '''
     notas: list[float] = []
     for numero in range(1, numero_de_notas+1):
