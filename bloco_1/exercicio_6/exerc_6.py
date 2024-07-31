@@ -1,28 +1,23 @@
 '''
-Escreva um programa que calcule o tempo de uma viagem. Faça um
-comparativo do mesmo percurso de avião, carro e ônibus.
-Levando em consideração:
-● avião = 600 km/h
-● carro = 100 km/h
-● ônibus = 80 km/h
+exercício 5 do Desafio_1 - Escreva um programa que calcule o salário líquido. Lembrando de
+declarar o salário bruto e o percentual de desconto do Imposto de Renda.
+    ● Renda até R$ 1.903,98: isento de imposto de renda;
+    ● Renda entre R$ 1.903,99 e R$ 2.826,65: alíquota de 7,5%;
+    ● Renda entre R$ 2.826,66 e R$ 3.751,05: alíquota de 15%;
+    ● Renda entre R$ 3.751,06 e R$ 4.664,68: alíquota de 22,5%;
+    ● Renda acima de R$ 4.664,68: alíquota máxima de 27,5%.
 '''
-
-
+import locale
 import os
 import platform
-import math
 from typing import Final
 from typing import Any
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
-LINHA_TRACEJADA: Final[str] = '-' * 31
+LINHA_ASTERISCO: Final[str] = '*' * 68
 COR_BRANCA: Final[str] = '\033[0;0m'
 COR_VERDE: Final[str] = '\033[32m'
 COR_BRIGHT_VERMELHA: Final[str] = '\033[91m'
-OPCOES_DE_TRANSPORTE:  Final[dict[str, str ]] = {
-    'A': 'Avião',
-    'O': 'Ônibus',
-    'C': 'Carro',    
-}
 
 # Habilita os caracteres ANSI escape no terminal Windows.
 os.system("")
@@ -41,26 +36,6 @@ def bright_vermelho(conteudo: Any) -> Any:
     '''
     return f"{COR_BRIGHT_VERMELHA}{conteudo}{COR_BRANCA}"
 
-def limpar_console():
-    '''
-    Limpa o console de acordo com a plataforma.
-    '''
-    if platform.system() == 'Windows':
-        os.system('cls')
-    if platform.system() == 'Linux':
-        os.system('clear')
-
-def input_opcoes(msg: str, opcoes: dict[str, str ]) -> str:
-    '''
-    Obtem a opção válida.
-    Retorna a opção.
-    '''
-    while True:
-        opcao = input(msg).upper()
-        if opcao in opcoes:
-            return opcao
-        print(f"\n\t'{bright_vermelho(opcao)}' é uma opção inválida! As opções válidas são: {verde(', '.join(opcoes))}") # pylint: disable=line-too-long
-
 def input_float(msg: str) -> float:
     '''
     Obtem número informado pelo usuário.
@@ -72,94 +47,88 @@ def input_float(msg: str) -> float:
         except ValueError:
             print(bright_vermelho('\tApenas números são aceitos. Por favor, tente novamente.\n'))
 
-def exibir_menu(opcoes: dict[str, str]) -> None:
+def limpar_console():
     '''
-    Exibi o menu de opções.
+    Limpa o console de acordo com a plataforma.
     '''
-    print('')
-    print(verde(f'\t{LINHA_TRACEJADA}'))
-    cabecalho = 'MENU DE OPÇÕES \n'
-    print(verde(cabecalho.center(50)))
+    if platform.system() == 'Windows':
+        os.system('cls')
+    if platform.system() == 'Linux':
+        os.system('clear')
 
-
-    for key, value in opcoes.items():
-        opcao = '|' + key + '|' + "  "  + value
-        print(f"\t\t{verde(opcao)} ")
-    print(verde(f'\t{LINHA_TRACEJADA}'))
-
-def obter_quilometro() -> float:
+def exibir_valores_de_percentual_imposto_de_renda() -> None:
     '''
-    Obtem os quilômetros informados pelo usuário.
-    Retorna os quilômetros válidos.
+    Exibi os valores das alíquotas de imposto de renda de acordo com a faixa salarial.
+    '''
+    print(verde(f'\t{LINHA_ASTERISCO}'))
+    print(verde('''
+            \tRenda até R$ 1.903,98: isento de imposto de renda;
+            \n\t\tRenda entre R$ 1.903,99 e R$ 2.826,65: alíquota de 7,5%; 
+            \n\t\tRenda entre R$ 2.826,66 e R$ 3.751,05: alíquota de 15%;
+            \n\t\tRenda entre R$ 3.751,06 e R$ 4.664,68: alíquota de 22,5%;
+            \n\t\tRenda acima de R$ 4.664,68: alíquota máxima de 27,5%.
+        '''))
+    print(verde(f'\t{LINHA_ASTERISCO}'))
+
+def formatar_valor_monetario(valor:float) -> str:
+    '''
+    Formata valor para  moeda brasileira.
+    '''
+    moeda_formatada = locale.currency(valor, grouping=True)
+    return moeda_formatada
+
+def obter_renda() -> float:
+    '''
+    Obtem o valor da renda iformado pelo usuário.
+    Retorna o valor da renda válido.
     '''
     while True:
-        quilometros_informados =  input_float('\tDistância em Km: ')
-        if quilometros_informados > 0:
-            return quilometros_informados
-        print(bright_vermelho('\tValor do quilômetro inválido. Entre com um valor acima de zero.'))
+        renda_informada =  input_float('\tRenda bruta R$: ') 
+        if renda_informada > 0:
+            return renda_informada
+        print(bright_vermelho('\tValor da renda inválida. Entre com um valor acima de zero.'))
 
-def calcular_tempo_de_viagem(distancia: float, velocidade: float) -> float:
+def calcular_salario_liquido(renda: float, percentual: float) -> float:
     '''
-    Calcula o tempo de viagem gasto.
+    Calcula o salario liquido.
+    Retorna o salário.
     '''
-    tempo_de_viagem = distancia / velocidade
-    return tempo_de_viagem
+    calculo = percentual * renda
+    imposto = calculo / 100
+    salario_liquido =   renda - imposto
+    return salario_liquido
 
-def passar_para_texto(valor) -> str:
+def calcular_salario_liquido_por_faixa_salarial (renda: float ) -> float:
     '''
-    Recebe um número e passa texto.
+    Calcula o salário liquido de acordo com a faixa salarial. 
+    Retorna o salário.
     '''
-    inteiro = math.trunc(valor)
-    fracionado = valor - inteiro
-    minutos = math.trunc(fracionado * 60)
-    return f"{inteiro} horas e {minutos} minutos"
-
-def calcular_tempo_da_viagem_de_aviao(distancia: float) -> float:
-    '''
-    Calcula o tempo de viagem de avião - distancia(km)
-    '''
-    velocidade_do_aviao = 600
-    return calcular_tempo_de_viagem(distancia, velocidade_do_aviao)
-
-def calcular_tempo_da_viagem_de_carro(distancia: float) -> float:
-    '''
-    Calcula o tempo de viagem de carro - distancia(km)
-    '''
-    velocidade_do_carro = 100
-    return calcular_tempo_de_viagem(distancia, velocidade_do_carro)
-
-def calcular_tempo_da_viagem_de_onibus(distancia: float) -> float:
-    '''
-    Calcula o tempo de viagem de carro - distancia(km)
-    '''
-    velocidade_do_onibus = 80
-    return calcular_tempo_de_viagem(distancia, velocidade_do_onibus)
+    if 1_903.98 <= renda <= 2_826.65:
+        salario_liquido = calcular_salario_liquido(renda, 7.5)
+        return salario_liquido
+    if 2_826.66 <= renda <=  3_751.05:
+        salario_liquido = calcular_salario_liquido(renda, 15)
+        return salario_liquido
+    if 3_751.06 <= renda <= 4_664.68:
+        salario_liquido = calcular_salario_liquido(renda, 22.5)
+        return salario_liquido
+    if renda > 4_664.68:
+        salario_liquido = calcular_salario_liquido(renda, 27.5)
+        return salario_liquido
+    return renda
 
 def main() -> None:
     '''
     Fluxo principal do programa.
     '''
     limpar_console()
-    print(verde('\tSaiba quanto tempo sua viagem vai levar.\n'))
-    while True:
-        exibir_menu(OPCOES_DE_TRANSPORTE)
-        transporte = input_opcoes('\tTipo de transporte: ', OPCOES_DE_TRANSPORTE)
-        distancia = obter_quilometro()
-        if transporte == 'A':
-            tempo_de_viagem = calcular_tempo_da_viagem_de_aviao(distancia)
-            tempo_formatado = passar_para_texto(tempo_de_viagem)
-            print(f'\n\tTempo estimado de viagem {tempo_formatado}')
-
-        elif transporte == 'O':
-            tempo_de_viagem = calcular_tempo_da_viagem_de_onibus(distancia)
-            tempo_formatado = passar_para_texto(tempo_de_viagem)
-            print(f'\n\tTempo estimado de viagem {tempo_formatado}')
-
-        elif transporte == 'C':
-            tempo_de_viagem = calcular_tempo_da_viagem_de_carro(distancia)
-            tempo_formatado = passar_para_texto(tempo_de_viagem)
-            print(f'\n\tTempo estimado de viagem {tempo_formatado}')
-        break
+    exibir_valores_de_percentual_imposto_de_renda()
+    print('\n\tInforme sua renda bruta para saber seu salário liquido.\n')
+    renda_informada = obter_renda()
+    resultado = calcular_salario_liquido_por_faixa_salarial(renda_informada)
+    print(verde('\n\t############## Resultado #################'))
+    print(verde(f"\n\t\tSalário líquido {formatar_valor_monetario(resultado)}"))
+    print(verde('\n\t##########################################'))
 
 if __name__ == '__main__':
     main()
