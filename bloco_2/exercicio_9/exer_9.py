@@ -85,7 +85,7 @@ def calcular_quantidade_de_numeros_pares_e_impares() -> list:
     quantidade_de_numeros_pares = 0
     quantidade_de_numeros_impares = 0
     numeros = obter_numeros()
-   
+
     for numero in numeros:
         if numero  % 2 == 0:
             quantidade_de_numeros_pares += 1
