@@ -9,23 +9,9 @@
 
 
  ### Instalações:
-```
-# Para verificar a qualidade de código fonte.
-pip install pylint --user
+ [Requisitos para este projeto](docs/requirements.txt)
 
-# Para verificar os tipos estáticos. 
-pip install mypy --user
 
-# Para testes parametrizados, acessórios e reescrita assertiva.
-pip install pytest --user
-
-# Para criptografia do tipo hash para senhas.
-pip install bcrypt
-
-#Para total de cobertura de testes.
-pip install pytest-cov
-
-```
 
 ### Comandos para Verificação Estática de Código (pylint e mypy):
 ```

@@ -1,5 +1,5 @@
 '''
-exercício 10 do Desafio_1 - Faça um Programa que utilize 4 variáveis como preferir e no final print
+Faça um Programa que utilize 4 variáveis como preferir e no final print
 uma mensagem amigável utilizando as variáveis criadas.
 Exemplos de variáveis: nome, idade, lugar, profissão ....
 Exemplo de retorno: Olá Maria, prazer te conhecer. Sou de São Paulo
