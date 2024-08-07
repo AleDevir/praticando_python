@@ -1,5 +1,5 @@
 '''
-exercício 7 do Desafio_1 - Solicite ao usuário o peso em kg e a altura em metros. 
+Solicite ao usuário o peso em kg e a altura em metros. 
 Calcule e imprima o Índice de Massa Corporal (IMC) usando a fórmula:
     IMC = peso / (altura x altura).
 '''
@@ -75,7 +75,7 @@ def obter_altura() -> float:
         if 0 < altura < 3.0:
             return altura
         else:
-            print(bright_vermelho('\tValor da altura é inválido. Números negativos ou acima de 3.0 metros não são aceitos.'))
+           print(bright_vermelho('\tValor da altura é inválido. Números negativos ou acima de 3.0 metros não são aceitos.'))
 
 def calcular_indice_massa_corporal(peso: float, altura: float) -> float:
     '''
@@ -114,9 +114,9 @@ def main() -> None:
     peso = obter_peso()
     altura = obter_altura()
     resultado = calcular_indice_massa_corporal(peso, altura)
-    print(bright_amarelo('\n\t######################## Resultado ##########################'))
+    print(bright_amarelo('\n\t........................ Resultado ..........................'))
     print(bright_amarelo(f"\n\tSeu IMC: {resultado:.2F}. Confira com a tabela acima a sua situação."))
-    print(bright_amarelo('\n\t#############################################################'))
+    print(bright_amarelo('\n\t.............................................................'))
 
 if __name__ == '__main__':
     main()
